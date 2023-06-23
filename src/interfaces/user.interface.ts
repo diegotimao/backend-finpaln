@@ -1,7 +1,7 @@
 interface User {
   id?: number,
   name: string,
-  password: string,
+  hash_password: string,
 };
 
 export default User;
