@@ -8,5 +8,9 @@ export default class UserModel {
     this.connection = connection;
   }
 
-  
+  public async getAll(): Promise<User[]> {
+    const result = await this.connection.execute('SELECT * FROM users');
+    const [rows] = result;
+    return rows as User[];
+  }
 }
