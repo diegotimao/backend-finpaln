@@ -1,18 +1,12 @@
 import express, { Request, Response, NextFunction } from "express";
-import { StatusCodes } from "http-status-codes";
+import routerUser from './src/routes/user.routes';
 import 'express-async-errors';
-import UserRoutes from "./routes/user.routes";
 
-const app = express();
-
-app.use(express.json());
-
+const app: express.Application = express();
 const PORT = 8080;
 
-app.post("/login", (req: Request, res: Response) => {
-  const user = req.body;
-  return res.status(StatusCodes.OK).json(user)
-});
+app.use(express.json());
+app.use(routerUser)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const { name, message, details } = err as any;
@@ -34,8 +28,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   }
   next();
 });
-
-app.use(UserRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is runing at http://localhost:${PORT}`)
