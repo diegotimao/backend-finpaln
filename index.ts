@@ -11,7 +11,7 @@ app.use(routerUser)
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const { name, message, details } = err as any;
   console.log(`name: ${name}`);
-
+  console.log(err)
   switch (name) {
     case 'ValidationError':
       res.status(400).json({message: details[0].message});

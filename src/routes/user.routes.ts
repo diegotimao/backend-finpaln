@@ -7,9 +7,6 @@ const userController = new UserController();
 
 router.get('/users', userController.getAll);
 
-router.post("/login", (req: Request, res: Response) => {
-  const user = req.body;
-  return res.status(StatusCodes.OK).json(user)
-});
+router.post("/login", userController.login);
 
 export default router;
