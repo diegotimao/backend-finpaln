@@ -6,8 +6,27 @@ class UserController {
   constructor(private userService = new UserService()) {}
 
   public login = async (req: Request, res: Response) => {
-    const user = await this.userService.login(req.body);
-    return res.status(StatusCodes.OK).json(user)
+    try {
+      const user = await this.userService.login(req.body);
+      return res.status(StatusCodes.OK).json(user)
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.log(error.message)
+        console.log(error.stack)
+      }
+    }
+  }
+
+  public register = async (req: Request, res: Response) => {
+    try {
+      const result = await this.userService.register(req.body);
+      return res.status(StatusCodes.OK).json(result)
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.log(error.message)
+        console.log(error.stack)
+      }
+    }
   }
 
   public getAll = async (_req: Request, res: Response) => {
