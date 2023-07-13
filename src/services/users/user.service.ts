@@ -2,6 +2,7 @@ import connection from "../../model/connection";
 import UserModel from "../../model/user/user.model";
 import User from "../../interfaces/user.interface";
 import { Login } from "../../types/Login";
+import { Register } from "../../types/Register";
 
 class UserService {
   public model: UserModel;
@@ -10,11 +11,11 @@ class UserService {
     this.model = new UserModel(connection);
   }
 
-  public async login(data: Login): Promise<User> {
-    if (!data.email || !data.hash_password) {
-      throw Object({ code: 409, message: 'dados invalidos.' })
-    }
+  public async register(register: Register) {
+    console.log(register)
+  }
 
+  public async login(data: Login): Promise<User> {
     const user = await this.model.login(data.email);
 
     if (!user || user.hash_password !== String(data.hash_password)) {
