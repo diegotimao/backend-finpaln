@@ -6,29 +6,18 @@ export default class UserModel {
 
   constructor(connection: Pool) {
     this.connection = connection;
-  }
+  };
 
   public async login(email: string): Promise<User> {
     const result = await this.connection.execute('SELECT * FROM users WHERE email = (?)', [email]);
     const [rows] = result;
     const [user] = rows as User[];
-    return user as User
-  }
+    return user as User;
+  };
 
   public async getAll(): Promise<User[]> {
     const result = await this.connection.execute('SELECT * FROM users');
     const [rows] = result;
     return rows as User[];
-  }
-
-  public async createUser(user: User): Promise<User> {
-    const { name, hash_password } = user;
-
-    const result = await this.connection.execute<ResultSetHeader>(
-      'INSERT INTO users (name, hash_password, create_at) VALUES (?,?,?)', 
-      [name, hash_password, new Date()]);
-    const [dataInserted] = result;
-    const { insertId } = dataInserted;
-    return { id: insertId, ...user};
-  }
-}
+  };
+};
