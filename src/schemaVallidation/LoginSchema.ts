@@ -4,7 +4,7 @@ import { NextFunction, Response, Request } from 'express';
 const LoginSchema = z.object({
   body: z.object({
     email: z.string().email("O e-mail precisa ser válido."),
-    hash_password: z.string().min(6, "A senha precisa ter no minímo 6 caractres.")
+    password: z.string().min(6, "A senha precisa ter no minímo 6 caractres.")
   })
 });
 
