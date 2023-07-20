@@ -1,5 +1,4 @@
 import { PrismaClient, User } from '@prisma/client';
-// import User from '../../interfaces/user.interface';
 
 export default class UserModel {
   public prisma: PrismaClient;
@@ -8,8 +7,19 @@ export default class UserModel {
     this.prisma = new PrismaClient();
   };
 
-  async getUsers(): Promise<User[]> {
+  public async getUsers(): Promise<User[]> {
     const users = await this.prisma.user.findMany();
     return users;
+  }
+
+  public async createUser(name: string, email: string, hashedPassword: string): Promise<User> {
+    const user = await this.prisma.user.create({
+      data: {
+        name,
+        email,
+        hashedPassword,
+      }
+    });
+    return user;
   }
 };
