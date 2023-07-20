@@ -34,6 +34,15 @@ class UserController {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Erro ao processar a requisição.' });
     }
   }
+
+  public findBy = async (req: Request, res: Response) => {
+    try {
+      const users = await this.userService.findBy()
+      return res.status(StatusCodes.OK).json(users)
+    } catch (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Erro ao processar a requisição.' });
+    }
+  }
 }
 
 export default UserController;
