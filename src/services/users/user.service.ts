@@ -26,4 +26,24 @@ export default class UserService {
       throw new Error('Erro ao criar usuário: ' + (error as Error).message);
     }
   }
+
+  public async login(email: string, password: string): Promise<string | null> {
+    try {
+      const result = await this.model.login(email, password)
+      
+      if (result === null) {
+        throw new Error("Usuário não existe.")
+      }
+      const checkPassword = await bcrypt.compare(password, result.hashedPassword);
+      
+      if (!checkPassword) {
+        return null
+      }
+
+      const token = generateToken({id: result.id, name: result.name, email: result.email});
+      return token;
+    } catch (error: unknown) {
+      throw error;
+    }
+  }
 }
