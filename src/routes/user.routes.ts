@@ -8,5 +8,6 @@ const userController = new UserController();
 
 router.post("/user/register", ValidationRegister(RegisterSchema), userController.createUser);
 router.post("/user/login", ValidateLogin(LoginSchema), userController.login);
+router.get("/user/list", userController.findBy);
 
 export default router;
