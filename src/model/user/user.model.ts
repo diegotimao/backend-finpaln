@@ -22,4 +22,19 @@ export default class UserModel {
     });
     return user;
   }
+
+  public async login(email: string, password: string): Promise<User | null> {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email
+        }
+      });
+      return user as User  
+    } catch (error) {
+      return null
+    } finally {
+      await this.prisma.$disconnect();
+    }
+  }
 };
