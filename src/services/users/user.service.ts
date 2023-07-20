@@ -1,36 +1,29 @@
-import connection from "../../model/connection";
 import UserModel from "../../model/user/user.model";
-import User from "../../interfaces/user.interface";
-import { Login } from "../../types/Login";
-import { Register } from "../../types/Register";
+import bcrypt from 'bcrypt';
+import {generateToken} from '../../utils/jwt.util';
 
-class UserService {
+export default class UserService {
   public model: UserModel;
 
   constructor() {
-    this.model = new UserModel(connection);
+    this.model = new UserModel();
   }
 
-  public async register(register: Register) {
-    console.log(register)
-  }
+  public async createUser(name: string, email: string, password: string): Promise<string> {
+    try {
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      const result = await this.model.createUser(name, email, hashedPassword);
 
-  public async login(data: Login): Promise<User> {
-    const user = await this.model.login(data.email);
-
-    if (!user || user.hash_password !== String(data.hash_password)) {
-      throw Object({ code: 409, message: 'Usuário não existe.' })
+      if (result) {
+        const token = generateToken({id: result.id, email: result.email, name: result.name});
+        return token;
+      }
+      
+      throw new Error('Erro ao criar usuário');
+    } catch (error: unknown) {
+      throw new Error('Erro ao criar usuário: ' + (error as Error).message);
     }
-    return user as User
-  }
-
-  public async getAll(): Promise<User[]> {
-    const users = await this.model.getAll();
-
-    const userFilter = users.filter((item) => item.name === "Diego")
-
-    return userFilter;
   }
 }
-
-export default UserService
