@@ -6,9 +6,6 @@ import { ValidationRegister, RegisterSchema } from '../schemaVallidation/Registe
 const router = Router();
 const userController = new UserController();
 
-router.get('/users', userController.getAll);
-
-router.post("/user/login", ValidateLogin(LoginSchema), userController.login);
-router.post("/user/register", ValidationRegister(RegisterSchema), userController.register);
+router.post("/user/register", ValidationRegister(RegisterSchema), userController.createUser);
 
 export default router;
