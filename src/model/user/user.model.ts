@@ -1,4 +1,5 @@
 import { PrismaClient, User } from '@prisma/client';
+import { findByUsers } from '../../interfaces/user.findBay.interrface';
 
 export default class UserModel {
   public prisma: PrismaClient;
@@ -7,8 +8,16 @@ export default class UserModel {
     this.prisma = new PrismaClient();
   };
 
-  public async getUsers(): Promise<User[]> {
-    const users = await this.prisma.user.findMany();
+  public async getUsers(): Promise<findByUsers[]> {
+    const users = await this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      }
+    });
     return users;
   }
 
