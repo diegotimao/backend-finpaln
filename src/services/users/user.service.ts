@@ -1,6 +1,8 @@
 import UserModel from "../../model/user/user.model";
 import bcrypt from 'bcrypt';
 import {generateToken} from '../../utils/jwt.util';
+import { User } from "@prisma/client";
+import { findByUsers } from "../../interfaces/user.findBay.interrface";
 
 export default class UserService {
   public model: UserModel;
@@ -43,6 +45,15 @@ export default class UserService {
       const token = generateToken({id: result.id, name: result.name, email: result.email});
       return token;
     } catch (error: unknown) {
+      throw error;
+    }
+  }
+
+  public async findBy(): Promise<findByUsers[]> {
+    try {
+      const users = await this.model.getUsers();
+      return users
+    } catch (error) {
       throw error;
     }
   }
