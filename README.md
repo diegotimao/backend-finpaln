@@ -1,16 +1,14 @@
 
 # Back-end Finplan - Em desenvolvimento
 
-Aplicação back-end que visa organizar as finanças familiares com facilidade. A plataforma simplifica o gerenciamento financeiro e a pessoa usuária acompanha todas as despesas da sua família.
+Esta é uma API backend desenvolvida em TypeScript que utiliza o Prisma como ORM (Object-Relational Mapping) para interagir com o banco de dados. O objetivo desta API é fornecer endpoints para gerenciar dados e recursos em um aplicativo web ou móvel. Ela visa organizar as finanças familiares com facilidade. A plataforma simplifica o gerenciamento financeiro e a pessoa usuária acompanha todas as despesas da sua família.
 
 
 ## Requisitos
 
 - [] Gerenciamento de boletos
 - [] Gerenciamento de lista de compras
-- [] Gerenciamento de receitas e despezas# API Backend TypeScript com Banco de Dados Prisma
-
-Esta é uma API backend desenvolvida em TypeScript que utiliza o Prisma como ORM (Object-Relational Mapping) para interagir com o banco de dados. O objetivo desta API é fornecer endpoints para gerenciar dados e recursos em um aplicativo web ou móvel.
+- [] Gerenciamento de receitas e despezas
 
 ## Funcionalidades
 
